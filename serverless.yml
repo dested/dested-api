@@ -1,5 +1,5 @@
-org: iamdested
-app: destedapi
+#org: iamdested
+#app: destedapi
 service: destedapi
 
 plugins:

@@ -9,6 +9,103 @@ export class ValidationError extends Error {
 }
 
 export class RequestModelValidator {
+  static validateVoteRequest(model: import('../controllers/mainController/models').VoteRequest): boolean {
+    let fieldCount = 0;
+    if (model === null) throw new ValidationError('VoteRequest', 'missing', '');
+    if (typeof model !== 'object') throw new ValidationError('VoteRequest', 'mismatch', '');
+
+    if (model['project'] === null) throw new ValidationError('VoteRequest', 'missing', 'project');
+    fieldCount++;
+    if (typeof model['project'] !== 'string') throw new ValidationError('VoteRequest', 'mismatch', 'project');
+    if (model['sessionId'] === null) throw new ValidationError('VoteRequest', 'missing', 'sessionId');
+    fieldCount++;
+    if (typeof model['sessionId'] !== 'string') throw new ValidationError('VoteRequest', 'mismatch', 'sessionId');
+    if (model['vote'] === null) throw new ValidationError('VoteRequest', 'missing', 'vote');
+    fieldCount++;
+    if (model['vote'] !== 'good' && model['vote'] !== 'bad')
+      throw new ValidationError('VoteRequest', 'mismatch', 'vote');
+
+    if (Object.keys(model).length !== fieldCount) throw new ValidationError('VoteRequest', 'too-many-fields', '');
+
+    return true;
+  }
+
+  static validateICanHelpRequest(model: import('../controllers/mainController/models').ICanHelpRequest): boolean {
+    let fieldCount = 0;
+    if (model === null) throw new ValidationError('ICanHelpRequest', 'missing', '');
+    if (typeof model !== 'object') throw new ValidationError('ICanHelpRequest', 'mismatch', '');
+
+    if (model['project'] === null) throw new ValidationError('ICanHelpRequest', 'missing', 'project');
+    fieldCount++;
+    if (typeof model['project'] !== 'string') throw new ValidationError('ICanHelpRequest', 'mismatch', 'project');
+    if (model['sessionId'] === null) throw new ValidationError('ICanHelpRequest', 'missing', 'sessionId');
+    fieldCount++;
+    if (typeof model['sessionId'] !== 'string') throw new ValidationError('ICanHelpRequest', 'mismatch', 'sessionId');
+    if (model['need'] === null) throw new ValidationError('ICanHelpRequest', 'missing', 'need');
+    fieldCount++;
+    if (typeof model['need'] !== 'string') throw new ValidationError('ICanHelpRequest', 'mismatch', 'need');
+    if (model['message'] === null) throw new ValidationError('ICanHelpRequest', 'missing', 'message');
+    fieldCount++;
+    if (typeof model['message'] !== 'string') throw new ValidationError('ICanHelpRequest', 'mismatch', 'message');
+    if ('portfolio' in model) {
+      fieldCount++;
+      if (model['portfolio'] !== null && model['portfolio'] !== undefined) {
+        if (typeof model['portfolio'] !== 'string')
+          throw new ValidationError('ICanHelpRequest', 'mismatch', 'portfolio');
+      }
+    }
+
+    if (Object.keys(model).length !== fieldCount) throw new ValidationError('ICanHelpRequest', 'too-many-fields', '');
+
+    return true;
+  }
+
+  static validateViewedProjectRequest(
+    model: import('../controllers/mainController/models').ViewedProjectRequest
+  ): boolean {
+    let fieldCount = 0;
+    if (model === null) throw new ValidationError('ViewedProjectRequest', 'missing', '');
+    if (typeof model !== 'object') throw new ValidationError('ViewedProjectRequest', 'mismatch', '');
+
+    if (model['project'] === null) throw new ValidationError('ViewedProjectRequest', 'missing', 'project');
+    fieldCount++;
+    if (typeof model['project'] !== 'string') throw new ValidationError('ViewedProjectRequest', 'mismatch', 'project');
+    if (model['sessionId'] === null) throw new ValidationError('ViewedProjectRequest', 'missing', 'sessionId');
+    fieldCount++;
+    if (typeof model['sessionId'] !== 'string')
+      throw new ValidationError('ViewedProjectRequest', 'mismatch', 'sessionId');
+
+    if (Object.keys(model).length !== fieldCount)
+      throw new ValidationError('ViewedProjectRequest', 'too-many-fields', '');
+
+    return true;
+  }
+
+  static validateClickedProjectRequest(
+    model: import('../controllers/mainController/models').ClickedProjectRequest
+  ): boolean {
+    let fieldCount = 0;
+    if (model === null) throw new ValidationError('ClickedProjectRequest', 'missing', '');
+    if (typeof model !== 'object') throw new ValidationError('ClickedProjectRequest', 'mismatch', '');
+
+    if (model['project'] === null) throw new ValidationError('ClickedProjectRequest', 'missing', 'project');
+    fieldCount++;
+    if (typeof model['project'] !== 'string') throw new ValidationError('ClickedProjectRequest', 'mismatch', 'project');
+    if (model['sessionId'] === null) throw new ValidationError('ClickedProjectRequest', 'missing', 'sessionId');
+    fieldCount++;
+    if (typeof model['sessionId'] !== 'string')
+      throw new ValidationError('ClickedProjectRequest', 'mismatch', 'sessionId');
+    if (model['which'] === null) throw new ValidationError('ClickedProjectRequest', 'missing', 'which');
+    fieldCount++;
+    if (model['which'] !== 'github' && model['which'] !== 'website')
+      throw new ValidationError('ClickedProjectRequest', 'mismatch', 'which');
+
+    if (Object.keys(model).length !== fieldCount)
+      throw new ValidationError('ClickedProjectRequest', 'too-many-fields', '');
+
+    return true;
+  }
+
   static validateHiRequest(model: import('../controllers/mainController/models').HiRequest): boolean {
     let fieldCount = 0;
     if (model === null) throw new ValidationError('HiRequest', 'missing', '');
